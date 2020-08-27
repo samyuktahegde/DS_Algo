@@ -68,21 +68,47 @@
 # print(arrayRotate(array, d))
 
 # Solution4: Reversal algorithm for array rotation
-def reverseArray(array, start, end):
-    while start<end:
-        array[start], array[end] = array[end], array[start]
-        start+=1
-        end-=1
+# def reverseArray(array, start, end):
+#     while start<end:
+#         array[start], array[end] = array[end], array[start]
+#         start+=1
+#         end-=1
 
-def arrayRotate(array, d):
-    if d==0:
-        return
+# def arrayRotate(array, d):
+#     if d==0:
+#         return
+#     n = len(array)
+#     reverseArray(array, 0, d-1)
+#     reverseArray(array, d, n-1)
+#     reverseArray(array, 0, n-1)
+
+# array = [1, 2, 3, 4, 5, 6, 7]
+# d = 2
+# arrayRotate(array, d)
+# print(array)
+
+
+#Solution4a: Block swap algorithm - Iterative implementation
+
+def blockswap(array, d):
     n = len(array)
-    reverseArray(array, 0, d-1)
-    reverseArray(array, d, n-1)
-    reverseArray(array, 0, n-1)
+    i = d
+    j = n-d
+    while i!=j:
+        if i<j:
+            swap(array, d-i, d+j-i, i)
+            j-=i
+        else:
+            swap(array, d-i, d, j)
+            i-=j
+    swap(array, d-i, d, i)
+
+def swap(array, a, b, d):
+    for i in range(d):
+        array[a+i], array[b+i] = array[b+i], array[a+i]
 
 array = [1, 2, 3, 4, 5, 6, 7]
 d = 2
-arrayRotate(array, d)
+blockswap(array, d)
 print(array)
+
